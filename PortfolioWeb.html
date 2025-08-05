@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Game & Web Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        /* Custom CSS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+       
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+       
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+       
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+       
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+       
+        @keyframes jumpIn {
+            0% {
+                opacity: 0;
+                transform: translateY(100px) scale(0.5);
+            }
+            60% {
+                opacity: 0.7;
+                transform: translateY(-20px) scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+       
+        .fade-in { animation: fadeIn 1s ease-out forwards; }
+        .fade-in-left { animation: fadeInLeft 1s ease-out forwards; }
+        .fade-in-right { animation: fadeInRight 1s ease-out forwards; }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .scale-in { animation: scaleIn 0.8s ease-out forwards; }
+        .jump-in { animation: jumpIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+       
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+       
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+       
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #b22222, #4b0082);
+            transition: all 0.4s ease;
+        }
+       
+        .nav-link:hover::after {
+            width: 100%;
+        }
+       
+        .active::after {
+            width: 100%;
+        }
+       
+        .glass {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(178, 34, 34, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(139, 0, 0, 0.3);
+        }
+       
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: #b22222;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+       
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+       
+        /* Solid Black Background */
+        body, section, .gradient-hero, .gradient-about, .gradient-projects, .gradient-skills, .gradient-contact {
+            background: #000000 !important;
+        }
+       
+        /* Name gradient animation */
+        .name-gradient {
+            background: linear-gradient(270deg, #b22222, #8b0000, #4b0082, #8b0000, #b22222);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient 8s ease infinite;
+            text-shadow: 0 0 10px rgba(178, 34, 34, 0.3);
+            transition: all 0.5s ease;
+        }
+       
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+       
+        .name-gradient:hover {
+            text-shadow: 0 0 20px rgba(178, 34, 34, 0.5);
+            animation-duration: 5s;
+        }
+       
+        /* Project Cards */
+        .project-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform: perspective(1000px) rotateY(0deg);
+            transform-style: preserve-3d;
+        }
+       
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, #b22222, #8b0000, #4b0082);
+            transition: height 0.3s ease;
+        }
+       
+        .project-card:hover {
+            transform: perspective(1000px) rotateY(5deg) translateY(-10px);
+            box-shadow: 0 20px 30px rgba(139, 0, 0, 0.3);
+        }
+       
+        .project-card:hover::before {
+            height: 100%;
+        }
+       
+        .project-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            background: linear-gradient(90deg, #ffffff, #e5e7eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+       
+        .project-tech {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+       
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+       
+        ::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+       
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(#b22222, #8b0000);
+            border-radius: 5px;
+        }
+       
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(#8b0000, #4b0082);
+        }
+       
+        /* Button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #b22222, #8b0000, #4b0082);
+            background-size: 200% 200%;
+            transition: all 0.5s ease;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+        }
+       
+        .btn-primary:hover {
+            background-position: 100% 50%;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.5);
+        }
+       
+        .btn-secondary {
+            border: 1px solid #8b0000;
+            transition: all 0.5s ease;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.1);
+        }
+       
+        .btn-secondary:hover {
+            background: rgba(139, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+            border-color: #b22222;
+        }
+       
+        /* Skill bars */
+        .skill-bar {
+            background: #1a1a1a;
+        }
+       
+        .skill-progress {
+            background: linear-gradient(90deg, #b22222, #8b0000, #4b0082);
+            box-shadow: 0 0 10px rgba(178, 34, 34, 0.3);
+        }
+       
+        /* Scroll indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #b22222, #8b0000, #4b0082);
+            z-index: 9997;
+            transition: width 0.1s ease;
+        }
+       
+        /* Section glow effect */
+        section {
+            position: relative;
+        }
+       
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #b22222, transparent);
+            opacity: 0.3;
+        }
+       
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(178, 34, 34, 0.5) 20%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen overflow-x-hidden">
+    <!-- Scroll progress indicator -->
+    <div class="scroll-progress"></div>
+   
+    <!-- Navigation -->
+    <nav class="glass fixed w-full z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold text-white hover:text-red-500 transition duration-300">Portfolio</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link active text-white hover:text-red-400 transition duration-300">Home</a>
+                    <a href="#about" class="nav-link text-white hover:text-red-400 transition duration-300">About</a>
+                    <a href="#projects" class="nav-link text-white hover:text-red-400 transition duration-300">Projects</a>
+                    <a href="#skills" class="nav-link text-white hover:text-red-400 transition duration-300">Skills</a>
+                    <a href="#contact" class="nav-link text-white hover:text-red-400 transition duration-300">Contact</a>
+                </div>
+                <button class="md:hidden focus:outline-none" id="menu-toggle">
+                    <i class="fas fa-bars text-2xl text-white hover:text-red-500 transition duration-300"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden glass" id="mobile-menu">
+            <div class="px-2 pt-2 pb-4 space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-red-900/30 transition duration-300">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-red-900/30 transition duration-300">About</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-red-900/30 transition duration-300">Projects</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-red-900/30 transition duration-300">Skills</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-red-900/30 transition duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+        <!-- Floating particles background -->
+        <div id="particles-js"></div>
+       
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 fade-in delay-1">Hi, I'm <span class="name-gradient">Muhammad Asheer Ali</span></h1>
+            <h2 class="text-2xl md:text-3xl mb-8 fade-in delay-2">A <span id="typing-text" class="text-red-400"></span><span class="typing-cursor"></span></h2>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10 fade-in delay-3">I create immersive digital experiences, from captivating games to beautiful websites.</p>
+            <div class="flex justify-center space-x-4 fade-in delay-4">
+                <a href="#projects" class="btn-primary text-white px-6 py-3 rounded-full">View My Work</a>
+                <a href="#contact" class="btn-secondary text-white px-6 py-3 rounded-full">Contact Me</a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 text-center fade-in delay-5">
+            <a href="#about" class="inline-block float-animation">
+                <i class="fas fa-chevron-down text-2xl text-red-500"></i>
+            </a>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 jump-in">About <span class="text-red-500">Me</span></h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/3 flex justify-center jump-in" data-sr="left">
+                    <div class="relative">
+                        <div class="w-64 h-64 bg-red-900 rounded-full opacity-20 absolute -z-10 animate-pulse"></div>
+                        <img src="Asheer.jpeg" alt="Profile Photo of Muhammad Asheer Ali" class="w-64 h-64 rounded-full object-cover border-4 border-red-500 hover:border-purple-500 transition duration-500">
+                    </div>
+                </div>
+                <div class="md:w-2/3 jump-in" data-sr="right">
+                    <h3 class="text-2xl font-semibold mb-4">Who am I?</h3>
+                    <p class="text-lg mb-6 leading-relaxed">Hello my name is Asheer Ali. I'm a passionate game and web developer with experience in creating interactive digital experiences. I specialize in both game development using SFML and Godot, as well as web development with modern technologies such as in WordPress, React or even coding via HTML/CSS.</p>
+                    <p class="text-lg mb-8 leading-relaxed">My approach blends technical expertise with creative vision, ensuring every project I work on delivers engaging user experiences. I'm constantly exploring new technologies and design patterns to enhance my skills.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="flex items-center scale-in">
+                            <i class="fas fa-check-circle text-red-500 mr-2"></i>
+                            <span>Game Development</span>
+                        </div>
+                        <div class="flex items-center scale-in">
+                            <i class="fas fa-check-circle text-red-500 mr-2"></i>
+                            <span>Web Development</span>
+                        </div>
+                        <div class="flex items-center scale-in">
+                            <i class="fas fa-check-circle text-red-500 mr-2"></i>
+                            <span>UI/UX Design</span>
+                        </div>
+                        <div class="flex items-center scale-in">
+                            <i class="fas fa-check-circle text-red-500 mr-2"></i>
+                            <span>SFML</span>
+                        </div>
+                        <div class="flex items-center scale-in">
+                            <i class="fas fa-check-circle text-red-500 mr-2"></i>
+                            <span>Godot Engine</span>
+                        </div>
+                        <div class="flex items-center scale-in">
+                            <i class="fas fa-check-circle text-red-500 mr-2"></i>
+                            <span>Responsive Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 jump-in">My <span class="text-red-500">Projects</span></h2>
+            <p class="text-center text-lg mb-16 max-w-2xl mx-auto jump-in">Here's a selection of my recent work across game development and web design.</p>
+           
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Project 1 - AI Nexus -->
+                <div class="project-card bg-gray-900/70 p-8 rounded-lg hover:bg-gray-900 transition-all duration-300 jump-in" data-sr="bottom">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                        <h3 class="project-title text-xl md:text-2xl">AI Nexus</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">A cutting-edge platform exploring artificial intelligence technologies and applications with interactive demonstrations.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">HTML/CSS</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">JavaScript</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">React</span>
+                    </div>
+                </div>
+               
+                <!-- Project 2 - Art Portfolio -->
+                <div class="project-card bg-gray-900/70 p-8 rounded-lg hover:bg-gray-900 transition-all duration-300 jump-in" data-sr="bottom">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                        <h3 class="project-title text-xl md:text-2xl">Art Portfolio</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">An elegant digital gallery showcasing artwork collections with smooth transitions and responsive design.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">HTML/CSS</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">JavaScript</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">GSAP</span>
+                    </div>
+                </div>
+               
+                <!-- Project 3 - Candy Crush Remake -->
+                <div class="project-card bg-gray-900/70 p-8 rounded-lg hover:bg-gray-900 transition-all duration-300 jump-in" data-sr="bottom">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                        <h3 class="project-title text-xl md:text-2xl">Candy Crush (Remake)</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">A faithful recreation of the popular match-3 puzzle game built from scratch with custom graphics and gameplay.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">C++</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">SFML</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">Game Dev</span>
+                    </div>
+                </div>
+               
+                <!-- Project 4 - Buzz Bomber Remake -->
+                <div class="project-card bg-gray-900/70 p-8 rounded-lg hover:bg-gray-900 transition-all duration-300 jump-in" data-sr="bottom">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                        <h3 class="project-title text-xl md:text-2xl">Buzz Bomber (Remake)</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Retro-style shooter game featuring classic arcade gameplay with modern visual effects and responsive controls.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">C++</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">SFML</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">Game Dev</span>
+                    </div>
+                </div>
+               
+                <!-- Project 5 - Deeper in Backrooms -->
+                <div class="project-card bg-gray-900/70 p-8 rounded-lg hover:bg-gray-900 transition-all duration-300 jump-in" data-sr="bottom">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                        <h3 class="project-title text-xl md:text-2xl">Deeper in Backrooms</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Horror exploration game featuring atmospheric lighting, sound design, and procedural level generation.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">Godot</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">GDScript</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">3D Game</span>
+                    </div>
+                </div>
+               
+                <!-- Project 6 - Potato Arena -->
+                <div class="project-card bg-gray-900/70 p-8 rounded-lg hover:bg-gray-900 transition-all duration-300 jump-in" data-sr="bottom">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                        <h3 class="project-title text-xl md:text-2xl">Potato Arena</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">An innovative AI-driven game development project featuring unique character mechanics and dynamic gameplay.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">AI</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">Game Dev</span>
+                        <span class="project-tech text-xs text-red-300 px-3 py-1 rounded-full bg-red-900/30">Innovation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 jump-in">My <span class="text-red-500">Skills</span></h2>
+           
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 jump-in" data-sr="scale">
+                <!-- Skill 1 -->
+                <div class="text-center p-6 bg-gray-900/70 rounded-lg hover:bg-gray-900 transition duration-300 hover:transform hover:scale-105">
+                    <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-red-900/30 rounded-full">
+                        <i class="fas fa-gamepad text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Game Development</h3>
+                    <p class="text-gray-300">Creating engaging games with SFML and Godot Engine.</p>
+                </div>
+               
+                <!-- Skill 2 -->
+                <div class="text-center p-6 bg-gray-900/70 rounded-lg hover:bg-gray-900 transition duration-300 hover:transform hover:scale-105">
+                    <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-red-900/30 rounded-full">
+                        <i class="fas fa-code text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Web Development</h3>
+                    <p class="text-gray-300">Building responsive, interactive websites and web apps.</p>
+                </div>
+               
+                <!-- Skill 3 -->
+                <div class="text-center p-6 bg-gray-900/70 rounded-lg hover:bg-gray-900 transition duration-300 hover:transform hover:scale-105">
+                    <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-red-900/30 rounded-full">
+                        <i class="fas fa-paint-brush text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Web Design</h3>
+                    <p class="text-gray-300">Creating visually appealing and user-friendly interfaces.</p>
+                </div>
+               
+                <!-- Skill 4 -->
+                <div class="text-center p-6 bg-gray-900/70 rounded-lg hover:bg-gray-900 transition duration-300 hover:transform hover:scale-105">
+                    <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-red-900/30 rounded-full">
+                        <i class="fas fa-user-circle text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">UI/UX Design</h3>
+                    <p class="text-gray-300">Designing intuitive user experiences and interfaces.</p>
+                </div>
+            </div>
+           
+            <!-- Skill Bars -->
+            <div class="mt-16 max-w-3xl mx-auto jump-in" data-sr="bottom">
+                <h3 class="text-xl font-semibold mb-8 text-center">Technical Proficiency</h3>
+               
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span>SFML/C++</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="w-full skill-bar rounded-full h-2.5">
+                        <div class="skill-progress h-2.5 rounded-full" style="width: 90%"></div>
+                    </div>
+                </div>
+               
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span>Godot Engine</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="w-full skill-bar rounded-full h-2.5">
+                        <div class="skill-progress h-2.5 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+               
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span>HTML/CSS</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="w-full skill-bar rounded-full h-2.5">
+                        <div class="skill-progress h-2.5 rounded-full" style="width: 95%"></div>
+                    </div>
+                </div>
+               
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span>JavaScript</span>
+                        <span>88%</span>
+                    </div>
+                    <div class="w-full skill-bar rounded-full h-2.5">
+                        <div class="skill-progress h-2.5 rounded-full" style="width: 88%"></div>
+                    </div>
+                </div>
+               
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span>UI/UX Design</span>
+                        <span>82%</span>
+                    </div>
+                    <div class="w-full skill-bar rounded-full h-2.5">
+                        <div class="skill-progress h-2.5 rounded-full" style="width: 82%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 jump-in">Get In <span class="text-red-500">Touch</span></h2>
+            <p class="text-center text-lg mb-16 max-w-2xl mx-auto jump-in">Have a project in mind or want to discuss potential opportunities? I'd love to hear from you!</p>
+           
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2 jump-in" data-sr="left">
+                    <form class="space-y-6" action="https://formspree.io/f/mkgzqblw" method="POST">
+                        <div>
+                            <label for="name" class="block mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-300">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-300">
+                        </div>
+                        <div>
+                            <label for="subject" class="block mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-300">
+                        </div>
+                        <div>
+                            <label for="message" class="block mb-2">Your Message</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-300"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary text-white px-6 py-3 rounded-full w-full hover:transform hover:scale-105 transition duration-300">Send Message</button>
+                    </form>
+                </div>
+               
+                <div class="md:w-1/2 jump-in" data-sr="right">
+                    <div class="glass p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                       
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-red-900/30 p-3 rounded-full mr-4 hover:bg-red-500 transition duration-300">
+                                    <i class="fas fa-envelope text-red-500 hover:text-white transition duration-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Email</h4>
+                                    <a href="mailto:asheergishkori@gmail.com" class="text-red-400 hover:text-red-300 transition duration-300">asheergishkori@gmail.com</a>
+                                </div>
+                            </div>
+                           
+                            <div class="flex items-start">
+                                <div class="bg-red-900/30 p-3 rounded-full mr-4 hover:bg-red-500 transition duration-300">
+                                    <i class="fas fa-phone-alt text-red-500 hover:text-white transition duration-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Phone</h4>
+                                    <a href="tel:+923366668405" class="text-red-400 hover:text-red-300 transition duration-300"> (+92)-336666-8405</a>
+                                </div>
+                            </div>
+                           
+                            <div class="flex items-start">
+                                <div class="bg-red-900/30 p-3 rounded-full mr-4 hover:bg-red-500 transition duration-300">
+                                    <i class="fas fa-map-marker-alt text-red-500 hover:text-white transition duration-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Location</h4>
+                                    <p>Islamabad, Pakistan</p>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="mt-12">
+                            <h4 class="font-medium mb-4">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://x.com/AsheerGishkori" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-red-900/30 hover:bg-red-500 rounded-full transition duration-300 hover:transform hover:scale-110">
+                                    <i class="fab fa-twitter hover:text-white transition duration-300"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-red-900/30 hover:bg-red-500 rounded-full transition duration-300 hover:transform hover:scale-110">
+                                    <i class="fab fa-linkedin-in hover:text-white transition duration-300"></i>
+                                </a>
+                                <a href="https://www.github.com/Ali123y" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-red-900/30 hover:bg-red-500 rounded-full transition duration-300">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://www.instagram.com/asheer_4gishkori/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-red-900/30 hover:bg-red-500 rounded-full transition duration-300">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-black/80 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center jump-in">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold text-white">Portfolio</a>
+                    <p class="mt-2 text-gray-400">Thanks for sticking by!</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#home" class="text-gray-400 hover:text-red-500 transition duration-300">Home</a>
+                    <a href="#about" class="text-gray-400 hover:text-red-500 transition duration-300">About</a>
+                    <a href="#projects" class="text-gray-400 hover:text-red-500 transition duration-300">Projects</a>
+                    <a href="#contact" class="text-gray-400 hover:text-red-500 transition duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+       
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+               
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+               
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+               
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+               
+                if(this.classList.contains('nav-link')) {
+                    this.classList.add('active');
+                }
+            });
+        });
+       
+        // Fast Typing animation with complete words
+        const typingText = document.getElementById('typing-text');
+        const professions = ['Game Developer', 'Web Developer', 'Web Designer', 'Programmer'];
+        let currentIndex = 0;
+        let isDeleting = false;
+        let displaySpeed = 100; // Time between letters (ms)
+        let pauseBetweenWords = 1500; // Pause before deleting (ms)
+       
+        function type() {
+            const currentWord = professions[currentIndex];
+           
+            if (!isDeleting) {
+                typingText.textContent = currentWord;
+                isDeleting = true;
+                setTimeout(type, pauseBetweenWords);
+            } else {
+                typingText.textContent = currentWord.substring(0, typingText.textContent.length - 1);
+               
+                if (typingText.textContent === '') {
+                    isDeleting = false;
+                    currentIndex = (currentIndex + 1) % professions.length;
+                    setTimeout(type, displaySpeed);
+                } else {
+                    setTimeout(type, displaySpeed / 2);
+                }
+            }
+        }
+       
+        // Start typing animation
+        setTimeout(type, 1000);
+       
+        // ScrollReveal animations
+        ScrollReveal().reveal('.jump-in', {
+            duration: 1000,
+            distance: '100px',
+            easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+            origin: 'bottom',
+            reset: false
+        });
+       
+        ScrollReveal().reveal('[data-sr="left"]', {
+            duration: 1000,
+            distance: '50px',
+            easing: 'ease-out',
+            origin: 'left',
+            reset: false
+        });
+       
+        ScrollReveal().reveal('[data-sr="right"]', {
+            duration: 1000,
+            distance: '50px',
+            easing: 'ease-out',
+            origin: 'right',
+            reset: false
+        });
+       
+        ScrollReveal().reveal('[data-sr="bottom"]', {
+            duration: 1000,
+            distance: '50px',
+            easing: 'ease-out',
+            origin: 'bottom',
+            reset: false
+        });
+       
+        ScrollReveal().reveal('[data-sr="scale"]', {
+            duration: 1000,
+            scale: 0.8,
+            easing: 'ease-out',
+            reset: false
+        });
+       
+        // Scroll progress
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+       
+        // Form submission handling
+        const form = document.querySelector('form');
+        if(form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    if (response.ok) {
+                        alert('Message sent successfully!');
+                        form.reset();
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                } catch (error) {
+                    alert('There was a problem sending your message. Please try again.');
+                }
+            });
+        }
+       
+        // Particle animation
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 10 + 5;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = Math.random() * window.innerHeight + 'px';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 6000);
+        }
+       
+        setInterval(createParticle, 500);
+    </script>
+</body>
+</html>
